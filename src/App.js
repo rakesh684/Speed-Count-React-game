@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from "react";
+import React,{useEffect, useState,useRef} from "react";
 import './App.css';
 // import WordGame from './hooks/wordGame'
 function App(){
@@ -7,6 +7,7 @@ function App(){
     const [timeRemaining,setTimeRemaining]=useState(START_TIME)
     const [isTimeRunning,setIsTimeRunning]=useState(false)
     const [wordCount,setWordCount]=useState(0)
+    const textBoxRef = useRef(null)
     function handleChange(e){
       const {value}=e.target
        setText(value)
@@ -17,10 +18,13 @@ function App(){
       return wordsArr.filter(word=> word!=="").length 
     }
 
-    function startClock(){
+    function startGame(){
       setIsTimeRunning(true)
       setTimeRemaining(START_TIME)
       setText("")
+      setWordCount(0)
+      textBoxRef.current.disabled = false
+      textBoxRef.current.focus()
       
     }
     
@@ -45,12 +49,14 @@ function App(){
        <h1>How fast do use type?</h1>
       <br/>
       <textarea 
+         ref={textBoxRef}
          onChange={handleChange}
          value={text}
+         disabled={!isTimeRunning}
          
       />
       <h4>Time remaining :{timeRemaining}</h4>
-      <button onClick={startClock}>Start</button>
+      <button disabled={isTimeRunning} onClick={startGame}>Start</button>
       <h1>Word Count:{wordCount}</h1>
     </div>
   )

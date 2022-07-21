@@ -19,11 +19,11 @@ function WordGame(){
         },1000)
     }
    },
-   [timeRemaining])
+   [timeRemaining,isTimeRunning])
    
    
     return(
-        {text,timeRemaining,handleChange,calculateWordCount}
+        {text,setIsTimeRunning,timeRemaining,isTimeRunning,handleChange,calculateWordCount}
            
     )
 }
